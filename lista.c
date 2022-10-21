@@ -23,7 +23,7 @@ int main()
     while (opcion != 6)
     {
         printf("\n--------MENU--------\n");
-        printf("1.Push\n2.Pop\n3.Mostra pila\n4.Top\n5.Size\n6.Salir");
+        printf("1.Push\n2.Pop\n3.Mostra cola\n4.Top\n5.Size\n6.Salir");
 	    printf("\nIngresa la opcion deseada: "); 
 	    scanf("%d", &opcion);
 		switch (opcion) 
@@ -37,13 +37,13 @@ int main()
                 pop(&head);
 				break;
 			case 3:
-                mostrarPila(head);
+                mostrarCola(head);
 				break;	
             case 4:
                 top(head);
                 break;
             case 5:
-                printf("\nEl tamaño de la pila es: %d", size(head));
+                printf("\nEl tamaño de la cola es de: %d", size(head));
                 break;
             case 6:
                 printf("\nTermino el programa.");
@@ -57,7 +57,7 @@ int main()
     return 0;
 }
 //Imprime los elementos de la cola
-void mostrarPila(NODO *head) 
+void mostrarCola(NODO *head) 
 {
     if(head == NULL)
     {
@@ -75,26 +75,34 @@ void mostrarPila(NODO *head)
         }
     }
 }
-//Permite agregar un valor al principio de la cola 
+//Permite agregar un valor al principio de la pila 
 void push(NODO **head, int dato)
 {
-    NODO *nuevoNodo = (NODO*)malloc(sizeof(NODO));
-    NODO *actual = head;
-    NODO *sig;
-    while(actual != NULL){
-        sig = actual;
-        actual = actual->sig;
-    };
-    nuevoNodo -> dato = dato;
-    nuevoNodo -> sig = *head;
-    *head = nuevoNodo;
+    NODO *nuevoNodo = malloc(sizeof(NODO));
+    nuevoNodo->dato = dato;
+    nuevoNodo->sig = NULL;
+
+    if(*head == NULL)
+    {
+        *head = nuevoNodo;
+    }
+    else
+    {
+        NODO *ultimo = *head;
+        while(ultimo->sig != NULL)
+        {
+            ultimo = ultimo->sig;
+        }
+        ultimo->sig = nuevoNodo;
+    }
 }
+
 //Permite eliminar el elemento al tope de la cola
 void pop(NODO **head)
 {
     if(head == NULL || *head == NULL)
     {
-        printf("\nLa pila esta vacia. ");
+        printf("\nLa cola esta vacia. ");
         return;
     }
     else
@@ -112,7 +120,7 @@ void top(NODO *head){
     }
     else
     {
-        printf("\nLa pila esta vacia.");
+        printf("\nLa cola esta vacia.");
     }
 }
 //Cuenta el tamano de la cola
