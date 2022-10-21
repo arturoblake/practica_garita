@@ -9,7 +9,7 @@ typedef struct Nodo
 }NODO;
 
 //prototipos
-void mostrarPila(NODO *head);
+void mostrarCola(NODO *head);
 void push(NODO **head, int dato);
 void pop(NODO **head);
 void top(NODO *head);
@@ -56,12 +56,12 @@ int main()
 
     return 0;
 }
-//Imprime los elementos de la pila
+//Imprime los elementos de la cola
 void mostrarPila(NODO *head) 
 {
     if(head == NULL)
     {
-        printf("\nLa pila esta vacia. ");
+        printf("\nLa cola esta vacia. ");
         return;
     }
     else
@@ -70,20 +70,26 @@ void mostrarPila(NODO *head)
 
         while (temp != NULL)
         {
-            printf("[%d]\n", temp -> dato);
+            printf("[%d] ", temp -> dato);
             temp = temp -> sig;
         }
     }
 }
-//Permite agregar un valor al principio de la pila 
+//Permite agregar un valor al principio de la cola 
 void push(NODO **head, int dato)
 {
     NODO *nuevoNodo = (NODO*)malloc(sizeof(NODO));
+    NODO *actual = head;
+    NODO *sig;
+    while(actual != NULL){
+        sig = actual;
+        actual = actual->sig;
+    };
     nuevoNodo -> dato = dato;
     nuevoNodo -> sig = *head;
     *head = nuevoNodo;
 }
-//Permite eliminar el elemento al tope de la pila
+//Permite eliminar el elemento al tope de la cola
 void pop(NODO **head)
 {
     if(head == NULL || *head == NULL)
@@ -99,7 +105,7 @@ void pop(NODO **head)
         free(temp);
     }
 }
-//Muestra el elemento del tope de la pila sin eliminarlo
+//Muestra el elemento del tope de la cola sin eliminarlo
 void top(NODO *head){
     if(head != NULL){
     printf("\nElemento de Top es: %d", head -> dato);
@@ -109,7 +115,7 @@ void top(NODO *head){
         printf("\nLa pila esta vacia.");
     }
 }
-//Cuenta el tamano de la pila
+//Cuenta el tamano de la cola
 int size(NODO *head)
 {
     int cont = 0;
