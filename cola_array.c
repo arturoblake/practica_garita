@@ -51,7 +51,7 @@ void main()
 
 int push(int cola[20], int inicio, int final, int n) {
     if(final == 20){
-        printf("\nEsta lleno este pedo ");
+        printf("\nEsta llena la cola ");
         }else{
         printf("\nValor n: ");
         scanf("%d", &n);
@@ -87,6 +87,6 @@ void top(int cola[20], int inicio, int final){
         printf("\nEl tope es: %d ", cola[inicio]);
     }
     else{
-        printf("\nLa cola del ali esta vacia");
+        printf("\nLa cola esta vacia");
     }
 }
