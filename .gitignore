@@ -1,0 +1,2 @@
+#ignora todos los archivos con terminacion .exe
+*.exe
