@@ -1,97 +1,191 @@
-// Circular Queue implementation in C
+#include<stdio.h>
+#include<stdlib.h>
 
-#include <stdio.h>
+struct CLLNode{
+    
+	int data; 
+	struct CLLNode *next; 
 
-#define SIZE 5
+};
 
-int items[SIZE];
-int front = -1, rear = -1;
+void instrucciones(void);
+int CircularListLength(struct CLLNode *head);
+void PrintCircularListData(struct CLLNode *head);
+void InsertAtEndlnCLL(struct CLLNode **head, int data);
+void InsertAtBeginlnCLL(struct CLLNode **head, int data);
+void DeleteLastNodeFromCLL(struct CLLNode **head);
+void DeleteFrontNodeFromCLL(struct CLLNode **head);
 
-// Check if the queue is full
-int isFull() {
-  if ((front == rear + 1) || (front == 0 && rear == SIZE - 1)) return 1;
-  return 0;
+int main(){
+	
+	struct CLLNode *head = NULL; 
+	
+	
+	int var; 
+	int tecla;
+	int valor;
+	int posicion;
+
+    system("cls");
+    printf("%s", "Introduce un valor entero: ");
+	scanf("\n%d", &var);
+	InsertAtBeginlnCLL(&head, var);
+	PrintCircularListData(head);
+	
+    printf("%s", "Introduce un valor entero: ");
+	scanf("\n%d", &var);
+	InsertAtEndlnCLL(&head, var);
+	 PrintCircularListData(head);
+			
+    //DeleteFrontNodeFromCLL(&head); 
+	PrintCircularListData(head);
+				    
+	
+	return 0;
 }
 
-// Check if the queue is empty
-int isEmpty() {
-  if (front == -1) return 1;
-  return 0;
+int CircularListLength(struct CLLNode *head){
+	
+	struct CLLNode *current = head;
+	int count = 0;
+	
+	if(head == NULL){
+		
+		return 0;
+	}
+	
+	do{
+		current = current->next;
+		count++;
+		
+	}while(current != head);
+	
+	return count;
 }
 
-// Adding an element
-void enQueue(int element) {
-  if (isFull())
-    printf("\n Queue is full!! \n");
-  else {
-    if (front == -1) front = 0;
-    rear = (rear + 1) % SIZE;
-    items[rear] = element;
-    printf("\n Inserted -> %d", element);
-  }
+
+void PrintCircularListData(struct CLLNode *head){
+	
+	struct CLLNode *current = head;
+	
+	if(head == NULL)
+	return;
+	
+	do{
+		
+		printf(" %d ", current->data);
+		current = current -> next;
+		
+	}while(current != head);
+	
 }
 
-// Removing an element
-int deQueue() {
-  int element;
-  if (isEmpty()) {
-    printf("\n Queue is empty !! \n");
-    return (-1);
-  } else {
-    element = items[front];
-    if (front == rear) {
-      front = -1;
-      rear = -1;
-    } 
-    // Q has only one element, so we reset the 
-    // queue after dequeing it. ?
-    else {
-      front = (front + 1) % SIZE;
-    }
-    printf("\n Deleted element -> %d \n", element);
-    return (element);
-  }
+void InsertAtEndlnCLL(struct CLLNode **head, int data){
+	
+	struct CLLNode *current = *head;
+	struct CLLNode *newNode = (struct CLLNode*)(malloc(sizeof(struct CLLNode)));
+	
+	if(!newNode){
+		
+		printf("Memory Error");
+		return;
+	}
+	
+	newNode->data = data;
+	while(current->next != *head)
+		current = current->next;
+		
+	newNode->next = newNode;
+	
+	if(*head == NULL){
+		
+		*head = newNode;
+		
+	}else{
+		
+		newNode->next = *head;
+		current->next = newNode;
+	}
 }
 
-// Display the queue
-void display() {
-  int i;
-  if (isEmpty())
-    printf(" \n Empty Queue\n");
-  else {
-    printf("\n Front -> %d ", front);
-    printf("\n Items -> ");
-    for (i = front; i != rear; i = (i + 1) % SIZE) {
-      printf("%d ", items[i]);
-    }
-    printf("%d ", items[i]);
-    printf("\n Rear -> %d \n", rear);
-  }
+void InsertAtBeginlnCLL(struct CLLNode **head, int data){
+	
+	struct CLLNode *current = *head;
+	struct CLLNode *newNode = (struct CLLNode*)(malloc(sizeof(struct CLLNode)));
+	
+	
+	if(!newNode){
+		
+		printf("Memory error");
+		return;
+	}
+	
+	newNode->data = data;
+	newNode->next = newNode;
+	
+	if(*head == NULL){
+		
+		*head = newNode;
+	
+	}else{
+		
+		while(current->next != *head){
+			
+			current = current->next;
+			
+		}
+		
+		newNode->next = *head;
+		current->next = newNode;
+		*head = newNode;
+	}
+
+	return;
 }
 
-int main() {
-  // Fails because front = -1
-  deQueue();
 
-  enQueue(1);
-  enQueue(2);
-  enQueue(3);
-  enQueue(4);
-  enQueue(5);
+void DeleteLastNodeFromCLL(struct CLLNode **head){
+	
+	struct CLLNode *temp = *head, *current = *head;
+	
+	if(*head == NULL){
+		
+		printf("List Empty");
+		return;
+	}
+	
+	while(current -> next != *head){
+		
+		temp = current;
+		current = current->next;
+	}
+	
+	temp->next = current->next;
+	free(current);
+	return;
+	
+}
 
-  // Fails to enqueue because front == 0 && rear == SIZE - 1
-  enQueue(6);
-
-  display();
-  deQueue();
-
-  display();
-
-  enQueue(7);
-  display();
-
-  // Fails to enqueue because front == rear + 1
-  enQueue(8);
-
-  return 0;
+void DeleteFrontNodeFromCLL(struct CLLNode **head){
+	
+	struct CLLNode *temp = *head;
+	struct CLLNode *current = *head;
+	
+	if(*head == NULL){
+		
+		printf("List empty");
+		return;
+		
+	}
+	
+	while(current->next != *head){
+		
+		current = current->next;
+	}
+	
+	current->next = (*head)->next;
+	*head = (*head)->next;
+	free(temp);
+	return;
+	
 }
