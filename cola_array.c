@@ -1,7 +1,7 @@
 #include <stdio.h>   
 
 //Prototipos  
-int push(int[20], int , int, int);  
+int push(int[20], int , int);  
 int pop(int[20], int, int);  
 void size(int, int);
 void mostrarCola(int[20], int, int);
@@ -13,7 +13,6 @@ void main()
     int final = 0;
     int cola[20];
     int opcion = 0;
-    int n = 0;
       
     while(opcion != 6)  
     {  
@@ -25,7 +24,7 @@ void main()
         switch(opcion)  
         {    
             case 1: 
-                final = push(cola, inicio, final, n);
+                final = push(cola, inicio, final);
                 break;   
             case 2:   
                 inicio = pop(cola, inicio, final);
@@ -49,7 +48,8 @@ void main()
     return; 
 }
 
-int push(int cola[20], int inicio, int final, int n) {
+int push(int cola[20], int inicio, int final) {
+    int n = 0;
     if(final == 20){
         printf("\nLa cola esta llena.");
         }else{
