@@ -4,10 +4,9 @@
 //Prototipos  
 void push(int[MAX]);  
 int pop(int[MAX]);  
-void size();
 void mostrarCola(int[MAX]);
-void size(int final);
-void top();
+void size();
+void top(int cola[MAX]);
 
 int inicio = -1;
 int final = -1;
@@ -36,9 +35,10 @@ void main()
 				mostrarCola(cola);  
                 break;
             case 4:
+                top(cola);
                 break;
             case 5:
-                size(final);
+                size();
                 break;
             case 6:
                 printf("\nTermino el programa.");
@@ -109,7 +109,7 @@ void mostrarCola(int cola[MAX])
     }
 }
 
-void size(int final) 
+void size() 
 {
     if(inicio == -1)
     {
@@ -121,3 +121,13 @@ void size(int final)
     }
 }
 
+void top(int cola[MAX]){
+    if(inicio == -1)
+    {
+        printf("\nLa cola esta vacia.\n");
+    }
+    else
+    {
+        printf("\nEl tope es: %d ", cola[inicio]);
+    }
+}
