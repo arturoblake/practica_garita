@@ -3,7 +3,7 @@
 
 //Prototipos  
 void push(int[MAX]);  
-void pop(int[MAX]);  
+int pop(int[MAX]);  
 void size();
 void mostrarCola(int[MAX]);
 void top();
@@ -67,7 +67,7 @@ void push(int cola[MAX])
   }
 }
 
-void pop(int cola[MAX])
+int pop(int cola[MAX])
 {
 
 }
