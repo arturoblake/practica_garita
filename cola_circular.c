@@ -2,17 +2,18 @@
 #define MAX 5
 
 //Prototipos  
-int push(int[MAX], int, int);  
-int pop();  
+void push(int[MAX]);  
+void pop(int[MAX]);  
 void size();
-void mostrarCola(int[], int, int);
+void mostrarCola(int[MAX]);
 void top();
+
+int inicio = -1;
+int final = -1;
 
 void main()  
 {  
-	int inicio = 0;
-    int final = 0;
-    int cola[20];
+    int cola[MAX];
     int opcion = 0;
 
     while(opcion != 6)  
@@ -25,12 +26,13 @@ void main()
         switch(opcion)  
         {    
             case 1:
-				final = push(cola, inicio, final); 
+				push(cola); 
                 break;   
-            case 2:   
+            case 2:
+
                 break;  
             case 3:
-				mostrarCola(cola, inicio, final);  
+				mostrarCola(cola);  
                 break;
             case 4:
                 break;
@@ -46,27 +48,34 @@ void main()
     return; 
 }
 
-int push(int cola[MAX], int inicio, int final)
+void push(int cola[MAX])
 {
-	int n = 0;
-	if(inicio == 0 && final == MAX|| inicio == final + 1)
-	{
-		printf("La cola esta llena.");
-	}
-	else
-	{
-		printf("\nValor n: ");
+    if ((inicio == final + 1) || (inicio == 0 && final == MAX - 1))
+        printf("La cola esta llena\n");
+    
+    else
+    {
+        int n = 0;
+        printf("\nValor n: ");
         scanf("%d", &n);
-		cola[final%MAX] = n;
-		final++;
-	}
-	return final;
-}  
+        if (inicio == -1) 
+            inicio = 0;
+        
+        final = (final + 1) % MAX;
+        cola[final] = n;
+        printf("%d Entro a la cola.\n", n);
+  }
+}
 
+void pop(int cola[MAX])
+{
 
+}
 
-void mostrarCola(int cola[20], int inicio, int final){
-    for(int i = final-1 ; i >= inicio; i--){
+void mostrarCola(int cola[MAX])
+{
+    for(int i = final ; i >= inicio; i--)
+    {
         printf("[%d] ", cola[i]);
     }
 }
