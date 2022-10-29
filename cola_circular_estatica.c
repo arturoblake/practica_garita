@@ -6,7 +6,7 @@ void push(int[MAX]);
 int pop(int[MAX]);  
 void mostrarCola(int[MAX]);
 void size();
-void top(int cola[MAX]);
+void top(int[MAX]);
 
 int inicio = -1;
 int final = -1;
@@ -96,16 +96,19 @@ int pop(int cola[MAX])
 
 void mostrarCola(int cola[MAX])
 {
-    if(inicio == -1)
+    int i;
+    if (inicio == -1)
     {
         printf("\nLa cola esta vacia.\n");
     }
     else
     {
-        for(int i = final ; i >= inicio; i--)
+        printf("\nLa cola es: \n");
+        for (i = inicio; i != final; i = (i + 1) % MAX)
         {
             printf("[%d] ", cola[i]);
         }
+        printf("[%d] \n", cola[i]);
     }
 }
 
@@ -117,7 +120,9 @@ void size()
     }
     else
     {
-        printf("\nLa cantidad de elementos de la cola es: %d ", final +1);
+        int size = 0;
+        size = inicio > final ? (MAX - inicio + final + 1) : (final - inicio + 1);//La encontre en internet no  sabia como implementarlo
+        printf("\nLa cantidad de elementos de la cola es: %d ", size);
     }
 }
 
