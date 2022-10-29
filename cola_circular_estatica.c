@@ -6,6 +6,7 @@ void push(int[MAX]);
 int pop(int[MAX]);  
 void size();
 void mostrarCola(int[MAX]);
+void size(int final);
 void top();
 
 int inicio = -1;
@@ -37,6 +38,7 @@ void main()
             case 4:
                 break;
             case 5:
+                size(final);
                 break;
             case 6:
                 printf("\nTermino el programa.");
@@ -50,17 +52,17 @@ void main()
 
 void push(int cola[MAX])
 {
-    if ((inicio == final + 1) || (inicio == 0 && final == MAX - 1))
+    if ((inicio == final + 1) || (inicio == 0 && final == MAX - 1)){
         printf("La cola esta llena\n");
-    
+    }
     else
     {
         int n = 0;
         printf("\nValor n: ");
         scanf("%d", &n);
-        if (inicio == -1) 
+        if (inicio == -1){ 
             inicio = 0;
-        
+        }
         final = (final + 1) % MAX;
         cola[final] = n;
         printf("%d Entro a la cola.\n", n);
@@ -79,3 +81,8 @@ void mostrarCola(int cola[MAX])
         printf("[%d] ", cola[i]);
     }
 }
+
+void size(int final){
+    printf("\nLa cantidad de elementos de la cola es: %d ", final +1);
+}
+
