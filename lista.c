@@ -10,7 +10,7 @@ typedef struct Nodo
 
 //prototipos
 void mostrarCola(NODO *head);
-void push(NODO **head, int dato);
+void push(NODO **head);
 void pop(NODO **head);
 void top(NODO *head);
 int size(NODO *head);
@@ -29,9 +29,7 @@ int main()
 		switch (opcion) 
         {
 			case 1:
-				printf("%s", "Introduce un valor entero: ");
-				scanf("\n%d", &dato);
-                push(&head, dato);
+                push(&head);
 				break;
 			case 2: 
                 pop(&head);
@@ -76,9 +74,12 @@ void mostrarCola(NODO *head)
     }
 }
 //Permite agregar un valor al principio de la pila 
-void push(NODO **head, int dato)
+void push(NODO **head)
 {
+    int dato;
     NODO *nuevoNodo = malloc(sizeof(NODO));
+	printf("%s", "Introduce un valor entero: ");
+	scanf("\n%d", &dato);
     nuevoNodo->dato = dato;
     nuevoNodo->sig = NULL;
 
